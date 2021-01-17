@@ -407,6 +407,22 @@ control the brightness instead.
 | `sunset_brightness`  | INT    | `10`                       | The brightness level (between 5 and 100)  you want when it's night.                                                                                                                                                                                                                              |
 | `sunrise_brightness` | INT    | `60`                       | The brightness level (between 5 and 100)  you want during the day. |
 
+### MQTT
+The scoreboard can publish messages to MQTT when a goal is scored. 
+
+#### Topics
+| Topic                   | Payload          | Description                                                               |
+|-------------------------|------------------|---------------------------------------------------------------------------|
+| nhl-led-scoreboard/goal | `home` or `away` | Notifies MQTT that a goal has been scored on either the home or away team |
+
+#### Settings
+| Settings      | Type    | Parameters        | Description                            |
+|---------------|---------|-------------------|----------------------------------------|
+| `enabled`     | Bool    | `true`, `false`   | Enable MQTT                            |
+| `broker_host` | String  | `"192.168.1.135"` | The IP or FQDN to MQTT                 |
+| `broker_port` | Integer | `1883`            | The port number for MQTT               |
+| `username`    | String  | `"mqtt"`          | The username to write messages to MQTT |
+| `password`    | String  | `"mqtt123"`       | The password to write messages to MQTT |
 
 ## Usage
 Once you are done optimizing your setup and configuring the software, you are ready to go.
