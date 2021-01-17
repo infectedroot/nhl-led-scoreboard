@@ -28,7 +28,7 @@ STATES = ['off_day','scheduled','intermission','post_game']
 #the boards listed below are what's listed in the config
 # These are boards that have configuration.  If your board does not have any config, you don't need to add it
 BOARDS = ['clock','weather','wxalert','scoreticker','seriesticker','standings','covid19']
-SBIO = ['pushbutton','dimmer','screensaver']
+SBIO = ['pushbutton','dimmer','screensaver','mqtt']
 
 class Clock24hValidator(Validator):
     def validate(self, document):
@@ -1448,6 +1448,59 @@ def screensaver(default_config,qmark):
         #pb_default.update(sbio_default)
     return ss_default
 
+def mqtt(default_config,qmark):
+    mqtt_default = get_default_value(default_config,['sbio','mqtt'],"string")
+    mqtt_enabled = [
+        {
+            'type': 'confirm',
+            'name': 'enabled',
+            'qmark': qmark,
+            'message': 'Use MQTT',
+            'default': get_default_value(default_config,['sbio','mqtt','enabled'],"bool")
+        }
+    ]
+    use_mqtt = prompt(mqtt_enabled,style=custom_style_dope)
+    if use_mqtt['enabled']:
+        mqtt_default.update(enabled = True)
+        #Get all of the settings for the pushbutton from the user
+        mqtt_questions = [
+            {
+                'type' : 'input',
+                'name' : 'broker_host',
+                'qmark': qmark,
+                'message' : "Enter the IP/FQDN of your MQTT Broker",
+                'default' : get_default_value(default_config,['sbio','mqtt','broker_host'],"string")
+            },
+            {
+                'type': 'input',
+                'name': 'broker_port',
+                'qmark': qmark,
+                'message': "Enter the Port of your MQTT Broker",
+                'filter': lambda val: int(val),
+                'default': get_default_value(default_config,['sbio','mqtt','broker_port'],"int")
+            },
+            {
+                'type': 'input',
+                'name': 'username',
+                'qmark': qmark,
+                'message': "Enter the usernane of your MQTT broker",
+                'default': get_default_value(default_config,['sbio','mqtt','username'],"string")
+            },
+            {
+                'type': 'input',
+                'name': 'password',
+                'qmark': qmark,
+                'message': "Enter the password of your MQTT broker",
+                'default': get_default_value(default_config,['sbio','mqtt','password'],"string")
+            }
+        ]
+
+        mqtt_answers = prompt(mqtt_questions,style=custom_style_dope)
+        mqtt_default.update(mqtt_answers)
+    else:
+        mqtt_default.update(enabled = False)
+    return mqtt_default
+
 def sbio_settings(default_config,qmark,setup_type):
     # SBIO configuration
     #sbio_config = {'sbio':{'dimmer':{},'pushbutton':{},'screensaver':{}}}
@@ -1471,6 +1524,8 @@ def sbio_settings(default_config,qmark,setup_type):
             sbio_config['pushbutton'] = pushbutton(default_config,qmark)
         if asbio == 'screensaver':
             sbio_config['screensaver'] = screensaver(default_config,qmark)
+        if asbio == 'mqtt':
+            sbio_config['mqtt'] = mqtt(default_config,qmark)
 
     return sbio_config
 

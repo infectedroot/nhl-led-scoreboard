@@ -104,6 +104,13 @@
         }
 	},
 	"sbio": {
+        "mqtt": {
+            "enabled": false,
+            "broker_host": "192.168.1.135",
+            "broker_port": 1883,
+            "username": "mqtt",
+            "password": "mqtt123"
+        },
 		"screensaver": {
             "enabled": true,
 			"animations": true,

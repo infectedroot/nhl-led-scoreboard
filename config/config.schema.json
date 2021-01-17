@@ -1016,6 +1016,13 @@
             "default": {},
             "examples": [
                 {
+                    "mqtt": {
+                        "enabled": true,
+                        "broker_host": "192.168.1.123",
+                        "broker_port":  1883,
+                        "username": "mqtt",
+                        "password": "mqtt123"
+                    },
                     "screensaver": {
                         "enabled": "true",
                         "start": "22:00",
@@ -1059,6 +1066,82 @@
                 "pushbutton"
             ],
             "properties": {
+                "mqtt": {
+                    "$id": "#/properties/sbio/properties/mqtt",
+                    "type": "object",
+                    "title": "mqtt",
+                    "description": "Ability to send scoreboard updates to MQTT",
+                    "default": {},
+                    "examples": [
+                        {
+                                "enabled": false,
+                                "broker_host": "192.168.1.135",
+                                "broker_port": 1883,
+                                "username": "mqtt",
+                                "password": "mqtt123"
+                        }
+                    ],
+                    "additionalProperties": true,
+                    "required": [
+                        "enabled",
+                        "broker_host",
+                        "broker_port",
+                        "username",
+                        "password"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "$id": "#/properties/sbio/properties/mqtt/properties/enabled",
+                            "type": "boolean",
+                            "title": "enabled",
+                            "description": "Use the MQTT functionality",
+                            "default": false,
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "broker_host": {
+                            "$id": "#/properties/sbio/properties/mqtt/properties/broker_host",
+                            "type": "string",
+                            "title": "broker_host",
+                            "description": "IP or FQDN of your MQTT Broker",
+                            "default": "192.168.1.135",
+                            "examples": [
+                                "192.168.1.135"
+                            ]
+                        },
+                        "broker_port": {
+                            "$id": "#/properties/sbio/properties/mqtt/properties/broker_port",
+                            "type": "integer",
+                            "title": "broker_port",
+                            "description": "Port number of your MQTT Broker",
+                            "default": 1883,
+                            "examples": [
+                                1883
+                            ]
+                        },
+                        "username": {
+                            "$id": "#/properties/sbio/properties/mqtt/properties/username",
+                            "type": "string",
+                            "title": "username",
+                            "description": "Username to write messages to MQTT",
+                            "default": "mqtt",
+                            "examples": [
+                                "mqtt"
+                            ]
+                        },
+                        "password": {
+                            "$id": "#/properties/sbio/properties/mqtt/properties/password",
+                            "type": "string",
+                            "title": "password",
+                            "description": "Password to write messages to MQTT",
+                            "default": "mqtt123",
+                            "examples": [
+                                "mqtt123"
+                            ]
+                        }
+                    }
+                },
                 "screensaver": {
                     "$id": "#/properties/sbio/properties/screensaver",
                     "type": "object",
