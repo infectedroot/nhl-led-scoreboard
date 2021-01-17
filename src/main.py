@@ -10,6 +10,7 @@ from sbio.dimmer import Dimmer
 from sbio.pushbutton import PushButton
 from sbio.motionsensor import Motion
 from sbio.screensaver import screenSaver
+from sbio.mqtt import MQTT
 from renderer.matrix import Matrix, TermMatrix
 from api.weather.ecWeather import ecWxWorker
 from api.weather.owmWeather import owmWxWorker
@@ -130,6 +131,12 @@ def run():
         pushbuttonThread = threading.Thread(target=pushbutton.run, args=())
         pushbuttonThread.daemon = True
         pushbuttonThread.start()
+
+    if data.config.mqtt_enabled:
+        mqtt = MQTT(data,matrix,sleepEvent)
+        #mqttThread = threading.Thread(target=mqtt.run, args=())
+        #mqttThread.daemon = True
+        #mqttThread.start()
 
     MainRenderer(matrix, data, sleepEvent).render()
 

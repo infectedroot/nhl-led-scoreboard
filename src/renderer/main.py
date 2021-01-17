@@ -275,6 +275,11 @@ class MainRenderer:
             self.goal_team_cache.append("away")
             if away_id not in self.data.pref_teams and pref_team_only:
                 return
+
+            # let mqtt know
+            if self.data.config.mqtt_enabled == True:
+                self.data.mqtt_client.publish("nhl-led-scoreboard/goal","away")
+
             # run the goal animation
             self._draw_goal_animation(away_id, away_name)
 
@@ -284,10 +289,15 @@ class MainRenderer:
             self.goal_team_cache.append("home")
             if home_id not in self.data.pref_teams and pref_team_only:
                 return
+
+            # let mqtt know
+            if self.data.config.mqtt_enabled == True:
+                self.data.mqtt_client.publish("nhl-led-scoreboard/goal","home")
+
             # run the goal animation
             self._draw_goal_animation(home_id, home_name)
-            
-    
+
+
     def _draw_goal_animation(self, id=14, name="test"):
         debug.info('Score by team: ' + name)
         preferred_team_only = self.data.config.goal_anim_pref_team_only

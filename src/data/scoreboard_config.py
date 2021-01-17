@@ -44,6 +44,13 @@ class ScoreboardConfig:
         self.screensaver_ms_pin = json["sbio"]["screensaver"]["pin"]
         self.screensaver_ms_delay = json["sbio"]["screensaver"]["delay"]
 
+        # MQTT Preferences
+        self.mqtt_enabled = json["sbio"]["mqtt"]["enabled"]
+        self.mqtt_broker_host = json["sbio"]["mqtt"]["broker_host"]
+        self.mqtt_broker_port = json["sbio"]["mqtt"]["broker_port"]
+        self.mqtt_username = json["sbio"]["mqtt"]["username"]
+        self.mqtt_password = json["sbio"]["mqtt"]["password"]
+
         # Dimmer preferences
         self.dimmer_enabled = json["sbio"]["dimmer"]["enabled"]
         self.dimmer_source = json["sbio"]["dimmer"]["source"]
