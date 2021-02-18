@@ -134,7 +134,7 @@
       } 
     },
     "severity":{
-      "position": [2, 0],
+      "position": [5, 0],
       "relative": {
         "to": "minutes",
         "align": "right"
