@@ -72,7 +72,8 @@
     },
     "SOG_label": {
       "position": ["50%", 0],
-      "align": "center-top"
+      "align": "center-top",
+      "font": "wx_medium"
     },
     "SOG": {
       "position": ["50%", 6],
